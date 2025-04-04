@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: $first-font;
+}
+
+a {
+    text-transform: unset;
+    text-decoration: unset;
+    color: unset;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: unset;
+    font-weight: unset;
+}
+
+input,
+label,
+button {
+    text-align: unset;
+    text-transform: unset;
+    text-decoration: unset;
+    background-color: unset;
+    border: unset;
+    padding: unset;
+}
