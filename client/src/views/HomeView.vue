@@ -47,7 +47,7 @@
 <script lang="ts">
 import { Vue } from 'vue-class-component';
 import axios from 'axios';
-const environment = process.env;
+const env = process.env;
 
 export default class HomeView extends Vue {
     isHidden = true;
@@ -80,11 +80,11 @@ export default class HomeView extends Vue {
         
         try {
             this.formData.shortenedLink = this.sanitizedShortenedLink();
-            const response = await axios.post("http://localhost:8080/in/", this.formData);
+            const response = await axios.post(`http://${env.VUE_APP_API_DOMAIN}/in/`, this.formData);
             
             if(response.status == 201) {
                 this.submitted = true;
-                this.linkCreated = "http://localhost:8080/in/"+response.data.shortenedLink;
+                this.linkCreated = `http://${env.VUE_APP_API_DOMAIN}/in/`+response.data.shortenedLink;
                 this.formData = {
                     linkTo: "",
                     shortenedLink: "",
