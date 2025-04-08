@@ -1,21 +1,20 @@
-FROM openjdk:21-jdk-slim AS build
+FROM openjdk:21-jdk-slim
+
+RUN apt-get update && apt-get install -y curl unzip
+
+RUN curl -fsSL https://archive.apache.org/dist/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.tar.gz -o /tmp/maven.tar.gz \
+    && tar -xvzf /tmp/maven.tar.gz -C /opt \
+    && ln -s /opt/apache-maven-3.8.6/bin/mvn /usr/local/bin/mvn \
+    && rm -f /tmp/maven.tar.gz
 
 WORKDIR /app
 
-COPY api/pom.xml ./
+COPY ./api/pom.xml .
 
-RUN apt-get update && apt-get install -y maven
+RUN mvn dependency:go-offline
 
-COPY api/ ./
+COPY ./api/src /app/src
 
 RUN mvn clean package -DskipTests
 
-FROM openjdk:21-jre-slim
-
-WORKDIR /app
-
-COPY --from=build /app/target/*.jar app.jar
-
-EXPOSE 2100
-
-CMD ["java", "-jar", "app.jar"]
+CMD ["java", "-jar", "target/link-shortener-0.0.1-SNAPSHOT.jar"]
