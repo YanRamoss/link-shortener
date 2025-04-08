@@ -1,19 +1,15 @@
-FROM node:18 AS build
+FROM node:lts-alpine
+
+RUN npm install -g serve
 
 WORKDIR /app
 
-COPY client/package*.json ./
+COPY package*.json ./
 
 RUN npm install
 
-COPY client/ ./
+COPY . .
 
 RUN npm run build
 
-FROM busybox:1.35.0-uclibc
-
-WORKDIR /app
-
-COPY --from=build /app/dist /var/www/linkshortener.yanramos.com.br/
-
-CMD ["tail", "-f", "/dev/null"]
+CMD ["serve", "-s", "dist", "-l", "2000"]

@@ -1,28 +1,39 @@
-version: '3.8'
-
 services:
-  client:
-    build:
-      context: .
-      dockerfile: client/Dockerfile
-    container_name: vue-client
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+    ports:
+      - "3306:3306"
     volumes:
-      - /var/www/linkshortener.yanramos.com.br:/app/linkshortener.yanramos.com.br
-    networks:
-      - app-network
+      - mysql_data:/var/lib/mysql
 
   api:
     build:
-      context: .
-      dockerfile: api/Dockerfile
-    container_name: spring-api
+      context: ./api
+    restart: always
     ports:
       - "2100:2100"
     environment:
-      - SPRING_PROFILES_ACTIVE=prod
-    networks:
-      - app-network
+      - DB_URL=${DB_URL}
+      - DB_USERNAME=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+    depends_on:
+      - mysql
 
-networks:
-  app-network:
-    driver: bridge
+  client:
+    build:
+      context: ./client
+    restart: always
+    ports:
+      - "2000:2000"
+    depends_on:
+      - api
+
+volumes:
+  mysql_data:
