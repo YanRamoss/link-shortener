@@ -1,10 +1,10 @@
-FROM maven:3.8.6-openjdk-21 AS build
+FROM openjdk:21-jdk-slim AS build
 
 WORKDIR /app
 
 COPY api/pom.xml ./
 
-RUN mvn dependency:go-offline
+RUN apt-get update && apt-get install -y maven
 
 COPY api/ ./
 
