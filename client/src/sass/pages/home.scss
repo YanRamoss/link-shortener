@@ -137,3 +137,19 @@
 .hidden {
     display: none;
 }
+
+@media screen and (max-width: 572px) {
+    h2 {
+        max-width: 80% !important;
+        text-align: center;
+    }
+
+    form {
+        width: 90% !important;
+
+        button {
+            margin: 0 auto;
+        }
+    }
+
+}

@@ -71,6 +71,8 @@ export default class HomeView extends Vue {
     }
 
     async handleSubmit() {
+        this.submitted = false;
+        this.linkCreated = "";
         this.errors = {
         linkTo: false,
         shortenedLink: false,
@@ -80,11 +82,11 @@ export default class HomeView extends Vue {
         
         try {
             this.formData.shortenedLink = this.sanitizedShortenedLink();
-            const response = await axios.post(`http://${env.VUE_APP_API_DOMAIN}/in/`, this.formData);
+            const response = await axios.post(`https://${env.VUE_APP_API_DOMAIN}/in/`, this.formData);
             
             if(response.status == 201) {
                 this.submitted = true;
-                this.linkCreated = `http://${env.VUE_APP_API_DOMAIN}/in/`+response.data.shortenedLink;
+                this.linkCreated = `https://${env.VUE_APP_API_DOMAIN}/in/`+response.data.shortenedLink;
                 this.formData = {
                     linkTo: "",
                     shortenedLink: "",
