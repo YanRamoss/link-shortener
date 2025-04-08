@@ -11,7 +11,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/in/")
-@CrossOrigin("http://localhost:3000")
 public class LinkController {
     private final LinkService linkService;
 
@@ -46,5 +45,4 @@ public class LinkController {
 
         return ResponseEntity.status(201).body(link);
     }
-
 }

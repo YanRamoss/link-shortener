@@ -6,7 +6,6 @@ import br.com.yanramos.linkshortener.repository.LinkRepository;
 import br.com.yanramos.linkshortener.util.RandomLinkGenerator;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -22,6 +21,7 @@ public class LinkService {
     public Optional<String> createLink(CreateLinkDTO createLinkDTO) {
         boolean isPresent = false;
         boolean generatedByDefault = false;
+        String url = "";
         String generateRandomLink = !Objects.equals(createLinkDTO.shortenedLink(), "") ? createLinkDTO.shortenedLink() : null;
         do{
             if(generateRandomLink == null){
@@ -35,7 +35,12 @@ public class LinkService {
             if(isPresent & !generatedByDefault) return Optional.empty();
         }while(isPresent);
 
-        Link link = new Link(null, generateRandomLink, createLinkDTO.linkTo());
+        if(!createLinkDTO.linkTo().startsWith("http://") &
+                !createLinkDTO.linkTo().startsWith("https://")) {
+            url = "http://"+createLinkDTO.linkTo();
+        }
+
+        Link link = new Link(null, generateRandomLink, url);
 
         linkRepository.save(link);
         return Optional.of(generateRandomLink);

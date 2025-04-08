@@ -1,11 +1,28 @@
+version: '3.8'
+
 services:
-  mysql:
-    container_name: 'guide-mysql'
-    image: 'mysql:latest'
-    environment:
-      - 'MYSQL_DATABASE=mydatabase'
-      - 'MYSQL_PASSWORD=secret'
-      - 'MYSQL_ROOT_PASSWORD=verysecret'
-      - 'MYSQL_USER=myuser'
+  client:
+    build:
+      context: .
+      dockerfile: client/Dockerfile
+    container_name: vue-client
+    volumes:
+      - /var/www/linkshortener.yanramos.com.br:/app/linkshortener.yanramos.com.br
+    networks:
+      - app-network
+
+  api:
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+    container_name: spring-api
     ports:
-      - '3306:3306'
+      - "2100:2100"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
