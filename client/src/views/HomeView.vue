@@ -3,7 +3,7 @@
         <div class="animation">
             <h1>Welcome to my link shortener!</h1>
         </div>
-        <h2>For using this tool, just type your link below and press ENTER</h2>
+        <h2>To use this tool, simply enter your link below and press ENTER</h2>
     </div>
     <div class="form-wrapper">
         <div v-if="submitted" class="message">    
@@ -28,7 +28,7 @@
                  required>
             </div>
 
-             <div class="customURIMessage" :onclick="displayInput">Do you want to custom your shortened link? <span>Click here</span></div>
+             <div class="customURIMessage" :onclick="displayInput">Want to customize your shortened link? <span>Click here</span></div>
              
             <div :class="['input',{'hidden': isHidden}]">
                 <label for="shortenedLink">Custom Link</label>
@@ -36,7 +36,7 @@
                  type="text"
                  id="shortenedLink"
                  maxlength="20"
-                 placeholder="resume => http://ls.yanramos.com.br/in/resume"
+                 placeholder="resume => https://ls.yanramos.com.br/in/resume"
                  :class="{'error': errors.shortenedLink}"
                  v-model="formData.shortenedLink">
                 </div>
