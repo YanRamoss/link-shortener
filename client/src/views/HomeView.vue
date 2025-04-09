@@ -22,7 +22,7 @@
                 <input
                  type="text"
                  id="linkTo"
-                 placeholder="https://domain.com/folder1/folder2/yanramos.pdf"
+                 placeholder="https://yanramos.com.br/folder1/folder2/yanramos.pdf"
                  :class="{'error': errors.linkTo}"
                  v-model="formData.linkTo"
                  required>
@@ -36,7 +36,7 @@
                  type="text"
                  id="shortenedLink"
                  maxlength="20"
-                 placeholder="resume => http://domain.com/resume"
+                 placeholder="resume => http://ls.yanramos.com.br/in/resume"
                  :class="{'error': errors.shortenedLink}"
                  v-model="formData.shortenedLink">
                 </div>
@@ -92,12 +92,10 @@ export default class HomeView extends Vue {
                     linkTo: "",
                     shortenedLink: "",
                 }
-            } else {
-                response.status == 409 ? this.errors.message = "Link já utilizado." : this.errors.message =  response.status.toString();
             }
         } catch (error: unknown) {
             if (error instanceof Error) {
-                this.errors.message = error.message;
+                this.errors.message = "Change the custom link";
             } else {
                 this.errors.message = "Unknown error";
             }
