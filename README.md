@@ -1,6 +1,6 @@
 # 🔗 Link Shortener
 
-Este é um encurtador de URLs desenvolvido com Java Spring Boot no backend e Vue.js no frontend, totalmente containerizado com Docker e Docker Compose.
+Este é um encurtador de URLs desenvolvido com Java Spring Boot e Vue.js, totalmente containerizado com Docker e Docker Compose.
 
 ---
 
