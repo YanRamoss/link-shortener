@@ -21,7 +21,6 @@ public class LinkController {
     @GetMapping
     public ResponseEntity<Void> goBackHome() {
         return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                .location(URI.create("https://ls.yanramos.com.br"))
                 .build();
     }
 
