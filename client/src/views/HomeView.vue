@@ -24,7 +24,8 @@
                  id="linkTo"
                  placeholder="https://domain.com/folder1/folder2/yanramos.pdf"
                  :class="{'error': errors.linkTo}"
-                 v-model="formData.linkTo">
+                 v-model="formData.linkTo"
+                 required>
             </div>
 
              <div class="customURIMessage" :onclick="displayInput">Do you want to custom your shortened link? <span>Click here</span></div>
@@ -82,11 +83,11 @@ export default class HomeView extends Vue {
         
         try {
             this.formData.shortenedLink = this.sanitizedShortenedLink();
-            const response = await axios.post(`https://${env.VUE_APP_API_DOMAIN}/in/`, this.formData);
+            const response = await axios.post(`${env.VUE_APP_API_DOMAIN}/in/`, this.formData);
             
             if(response.status == 201) {
                 this.submitted = true;
-                this.linkCreated = `https://${env.VUE_APP_API_DOMAIN}/in/`+response.data.shortenedLink;
+                this.linkCreated = `${env.VUE_APP_API_DOMAIN}/in/`+response.data.shortenedLink;
                 this.formData = {
                     linkTo: "",
                     shortenedLink: "",

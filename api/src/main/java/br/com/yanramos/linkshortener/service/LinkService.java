@@ -21,7 +21,7 @@ public class LinkService {
     public Optional<String> createLink(CreateLinkDTO createLinkDTO) {
         boolean isPresent = false;
         boolean generatedByDefault = false;
-        String url = "";
+        String url = createLinkDTO.linkTo();
         String generateRandomLink = !Objects.equals(createLinkDTO.shortenedLink(), "") ? createLinkDTO.shortenedLink() : null;
         do{
             if(generateRandomLink == null){
