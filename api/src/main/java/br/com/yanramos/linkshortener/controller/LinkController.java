@@ -18,6 +18,13 @@ public class LinkController {
         this.linkService = linkService;
     }
 
+    @GetMapping
+    public ResponseEntity<Void> goBackHome() {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .location(URI.create("https://ls.yanramos.com.br"))
+                .build();
+    }
+
     @GetMapping("/{shortenedLink}")
     public ResponseEntity<Void> getLink(@PathVariable("shortenedLink") String shortenedLink) {
         Optional<Link> link = linkService.getLinkByShortened(shortenedLink);
